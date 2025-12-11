@@ -1,44 +1,6 @@
 "use server";
 
 import { z } from "zod";
-import { answerQuestion } from "@/ai/flows/ai-powered-faq";
-import { suggestNewFAQEntries } from "@/ai/flows/suggest-new-faq-entries";
-import { faqs } from "@/lib/data";
-
-// --- FAQ Action ---
-
-export async function handleFaqQuestion(
-  question: string
-): Promise<{ answer: string | null; error: string | null }> {
-  if (!question || question.trim().length < 5) {
-    return { answer: null, error: "Por favor, haz una pregunta más detallada." };
-  }
-
-  try {
-    const result = await answerQuestion({
-      question,
-      existingFaqs: faqs,
-    });
-
-    if (result.isNewAnswer) {
-      console.log("La IA generó una nueva respuesta. Sugiriendo una nueva entrada de FAQ al administrador...");
-      try {
-        const suggestionResult = await suggestNewFAQEntries({ userQuestion: question });
-        console.log("Nueva entrada de FAQ sugerida:", suggestionResult.suggestedFAQEntry);
-      } catch (suggestionError) {
-        console.error("No se pudo obtener la sugerencia de FAQ:", suggestionError);
-      }
-    }
-
-    return { answer: result.answer, error: null };
-  } catch (e) {
-    console.error("Error al procesar la pregunta de FAQ:", e);
-    return {
-      answer: null,
-      error: "Lo siento, no pude procesar tu pregunta en este momento. Por favor, inténtalo de nuevo más tarde.",
-    };
-  }
-}
 
 // --- Lead Capture Action ---
 

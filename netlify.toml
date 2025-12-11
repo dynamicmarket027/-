@@ -2,6 +2,5 @@
   command = "npm run build"
   publish = ".next"
 
-[[edge_functions]]
-  path = "/*"
-  function = "next"
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
