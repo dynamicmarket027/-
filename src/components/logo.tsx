@@ -11,7 +11,7 @@ export function Logo({ className }: { className?: string }) {
     >
       <div className="relative h-8 w-8 shrink-0">
         <Image
-          src="/img/logo.png"
+          src="/imgs/logo.png"
           alt="Soft Warehouse Logo"
           width={32}
           height={32}
